@@ -1,0 +1,179 @@
+/* Estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #00D2D3, #009E9E); /* Gradiente suave */
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  animation: bodyBackground 10s ease-in-out infinite alternate;
+}
+
+/* Animación del fondo */
+@keyframes bodyBackground {
+  0% { background: linear-gradient(135deg, #00D2D3, #009E9E); }
+  25% { background: linear-gradient(135deg, #ff6a00, #ffbb33); }
+  50% { background: linear-gradient(135deg, #ff61a6, #d80069); }
+  75% { background: linear-gradient(135deg, #32CD32, #006400); }
+  100% { background: linear-gradient(135deg, #00BFFF, #0072FF); }
+}
+
+/* Animación de fadeIn */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Contenedor principal */
+.container {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 50px;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  animation: containerIn 1.5s ease-out;
+}
+
+@keyframes containerIn {
+  0% { opacity: 0; transform: translateY(50px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Título */
+h1 {
+  font-size: 60px;
+  color: #fff;
+  margin-bottom: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  text-shadow: 4px 4px 20px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 2s ease-out;
+}
+
+/* Input de tarea */
+input[type='text'] {
+  width: 80%;
+  padding: 16px;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  margin-right: 20px;
+  font-size: 22px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #00D2D3;
+  outline: none;
+  transition: all 0.4s ease-in-out;
+  animation: inputGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes inputGlow {
+  0% { box-shadow: 0 0 15px rgba(0, 255, 255, 0.8); }
+  100% { box-shadow: 0 0 20px rgba(50, 205, 50, 0.8); }
+}
+
+input[type='text']:focus {
+  border-color: #32C7B7;
+  box-shadow: 0 0 20px rgba(50, 205, 50, 0.8);
+  transform: scale(1.05);
+  color: #fff;
+}
+
+/* Botón principal */
+button {
+  background: linear-gradient(135deg, #FF8C00, #FF5E00);
+  color: white;
+  padding: 20px 40px;
+  border: 2px solid #FF8C00;
+  border-radius: 35px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease-out;
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.5);
+  animation: buttonPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes buttonPulse {
+  0% { transform: scale(1); box-shadow: 0 8px 20px rgba(255, 140, 0, 0.5); }
+  100% { transform: scale(1.1); box-shadow: 0 10px 30px rgba(255, 140, 0, 0.7); }
+}
+
+button:hover {
+  background: linear-gradient(135deg, #FF6600, #FF4D00);
+  transform: translateY(-6px);
+  box-shadow: 0 0 35px rgba(255, 102, 0, 0.8);
+}
+
+/* Estilos para botones de eliminar y actualizar */
+button.delete {
+  background: linear-gradient(135deg, #FF6A00, #FF3333);
+}
+
+button.delete:hover {
+  background: linear-gradient(135deg, #FF4D4D, #D32F2F);
+  transform: translateY(-6px);
+  box-shadow: 0 0 35px rgba(255, 0, 0, 0.8);
+}
+
+button.update {
+  background: linear-gradient(135deg, #FFB600, #FF8C00);
+}
+
+button.update:hover {
+  background-color: #FFB86C;
+  transform: translateY(-6px);
+  box-shadow: 0 0 35px rgba(255, 165, 0, 0.8);
+}
+
+/* Lista de tareas */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 40px;
+  width: 100%;
+}
+
+li {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 22px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(7px);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  width: 100%;
+}
+
+li:hover {
+  transform: translateY(-6px);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+li button {
+  margin-left: 20px;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+li button.delete {
+  background-color: #FF5E62;
+}
+
+li button.delete:hover {
+  background-color: #D32F2F;
+  transform: scale(1.1);
+}

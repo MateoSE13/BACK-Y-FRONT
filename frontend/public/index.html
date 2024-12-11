@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        /* Estilos para el input */
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin-right: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+            background-color: #ffffff;
+            outline: none;
+        }
+        input[type="text"]::placeholder {
+            color: #888;
+            font-style: italic;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .delete {
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+        }
+        .delete:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gestor de Tareas</h1>
+        <!-- Campo de entrada mejorado -->
+        <input type="text" id="taskInput" placeholder="Escribe tu tarea aquí..." />
+        <button onclick="addTask()">Agregar Tarea</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        // Obtener las tareas guardadas en el almacenamiento local
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+        // Función para agregar una tarea
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+
+            if (taskText !== '') {
+                tasks.push(taskText);  // Agregar tarea al array de tareas
+                localStorage.setItem('tasks', JSON.stringify(tasks));  // Guardar tareas en localStorage
+                taskInput.value = '';  // Limpiar el campo de entrada
+                renderTasks();  // Actualizar la lista de tareas
+            }
+        }
+
+        // Función para eliminar una tarea
+        function deleteTask(index) {
+            tasks.splice(index, 1);  // Eliminar tarea del array
+            localStorage.setItem('tasks', JSON.stringify(tasks));  // Actualizar el almacenamiento
+            renderTasks();  // Actualizar la lista de tareas
+        }
+
+        // Función para renderizar la lista de tareas
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';  // Limpiar lista actual
+
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${task} <button class="delete" onclick="deleteTask(${index})">Eliminar</button>`;
+                taskList.appendChild(li);
+            });
+        }
+
+        // Renderizar las tareas guardadas cuando la página se carga
+        window.onload = renderTasks;
+    </script>
+
+</body>
+</html>

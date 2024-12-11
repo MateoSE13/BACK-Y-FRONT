@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tasksdb
+    ports:
+      - "5433:5432"
+    networks:
+      - app-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      DB_HOST: postgres
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: tasksdb
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3001:80"  # Nginx normalmente sirve en el puerto 80
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    command: ["nginx", "-g", "daemon off;"]  # Ejecuta Nginx
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge

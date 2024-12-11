@@ -1,0 +1,27 @@
+# Fase de construcción
+FROM node:18 AS build
+
+# Directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiar los archivos necesarios para instalar las dependencias
+COPY package*.json ./
+RUN npm install
+
+# Copiar el resto de los archivos del proyecto
+COPY . .
+
+# Construir la aplicación para producción
+RUN npm run build
+
+# Fase de producción (utilizando nginx para servir los archivos estáticos)
+FROM nginx:stable-alpine
+
+# Copiar los archivos estáticos generados en la fase de construcción
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Exponer el puerto 80 para el tráfico HTTP
+EXPOSE 80
+
+# Comando por defecto para ejecutar nginx
+CMD ["nginx", "-g", "daemon off;"]
